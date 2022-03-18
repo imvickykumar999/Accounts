@@ -1,3 +1,4 @@
+# https://docs.gspread.org/en/latest/api.html#gspread.spreadsheet.Spreadsheet.share
 
 from unicodedata import name
 from oauth2client.service_account import ServiceAccountCredentials as sac
