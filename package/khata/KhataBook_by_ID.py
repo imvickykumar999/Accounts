@@ -1,7 +1,10 @@
 
 class flask_sheet:
-    def __init__(self, url = 'https://docs.google.com/spreadsheets/d/1aJqW6A_rVdK7bfeX2Lb8O22xztbDFZw29yLwSc3ekUE/edit#gid=0'):
-        self.url = url
+
+    def __init__(self, 
+            url = 'https://docs.google.com/spreadsheets/d/1aJqW6A_rVdK7bfeX2Lb8O22xztbDFZw29yLwSc3ekUE/edit#gid=0',
+            jfile = 'ideationology-lab-b60654e44e37.json',
+        ):
 
         from oauth2client.service_account import ServiceAccountCredentials as sac
         import gspread, os
@@ -10,15 +13,19 @@ class flask_sheet:
                 'https://www.googleapis.com/auth/drive']
 
         # path = './Clouix/Spreadsheets'
-        jfile = 'ideationology-lab-b60654e44e37.json'
+        self.jfile = jfile
         # jfile = os.path.join(path, jfile)
 
-        creds = sac.from_json_keyfile_name(jfile, scope)
+        creds = sac.from_json_keyfile_name(self.jfile, scope)
         client = gspread.authorize(creds)
+
+        self.url = url        
         self.sheet = client.open_by_url(self.url)
 
 
-    def mark(self, attend, sheet_id, top = ['Purchased Date', 'Objects', 'Cost']):
+    def mark(self, attend, sheet_id,
+                 top = ['Purchased Date', 'Objects', 'Cost']):
+        
         import datetime
         dt = str(datetime.datetime.now()).split()
 
