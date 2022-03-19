@@ -8,4 +8,4 @@
 ----------------------------------
 
 ## >>> Run on CMD...
-[![image](https://user-images.githubusercontent.com/50515418/159110300-6b00b6ef-26c0-4e95-a410-41add5dc9805.png)](https://github.com/imvickykumar999/Accounts/blob/6b71463df43103f99408dd26e5f9da381c8203d4/KhataBook_by_ID.py#L75)
+[![image](https://user-images.githubusercontent.com/50515418/159115483-96718dae-bf42-44d9-af9f-9dbe760f93e6.png)](https://github.com/imvickykumar999/Accounts/blob/6b71463df43103f99408dd26e5f9da381c8203d4/KhataBook_by_ID.py#L75)
