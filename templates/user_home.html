@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+{% block content %}
+
+<!doctype html5>
+<html>
+  <head>
+    <title>{{ username }} - Home</title>
+  </head>
+  <body>
+    <center>
+      <form action="/account/{{username}}" method="post">
+        <div class="jumbotron">
+          <div class="container">
+            <div class="alert alert-light" role="alert">
+
+              <h1>
+                Hi {{username}} !
+              </h1>
+
+              <br>
+              <div class="alert alert-danger" role="alert">
+                <a href="{{ url_for('logout', username=username) }}">
+                  <h3>
+                    Logout
+                  </h3>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </center>
+  </body>
+</html>
+
+{% endblock %}
