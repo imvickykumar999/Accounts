@@ -12,10 +12,7 @@ class flask_sheet:
         scope = ['https://spreadsheets.google.com/feeds',
                 'https://www.googleapis.com/auth/drive']
 
-        # path = './Clouix/Spreadsheets'
-        self.jfile = jfile
-        # jfile = os.path.join(path, jfile)
-
+        self.jfile = os.path.join('./account_tests', jfile)
         creds = sac.from_json_keyfile_name(self.jfile, scope)
         client = gspread.authorize(creds)
 
@@ -46,19 +43,24 @@ class flask_sheet:
             }
         })
 
-        sz = len(worksheet_up.col_values(1))+1
+        sz = len(worksheet_up.col_values(1))
         worksheet_up.update(f'A{sz}', [attend])
 
         if top == ['Purchased Date', 'Objects', 'Cost']:
+            worksheet_up.format(f'A{sz}', {"textFormat": {"bold": False}})
+            
             worksheet_up.format(f'B{sz}', {"textFormat": {"bold": False}})
             worksheet_up.format(f'C{sz}', {"textFormat": {"bold": False}})
+
+            worksheet_up.update(f'A{sz+1}', ' / '.join(dt))
+            worksheet_up.format(f'A{sz+1}', {"textFormat": {"bold": True}}) 
 
             worksheet_up.update(f'B{sz+1}', 'Total Cost')
             worksheet_up.format(f'B{sz+1}', {"textFormat": {"bold": True}})
 
             worksheet_up.update(f'C{sz+1}', f"=SUM(C2:C{sz})", raw=False)
             worksheet_up.format(f'C{sz+1}', {"textFormat": {"bold": True}}) 
-        
+
         body = {
             "requests": [
                 {
@@ -91,11 +93,12 @@ class flask_sheet:
     def fetch(self, sheet_id):
         sheet_instance = self.sheet.get_worksheet_by_id(sheet_id)
         records_data = sheet_instance.get_all_records()
+        return records_data
 
-        import pandas as pd
-        df = pd.DataFrame(records_data) 
-        df.index += 1
-        return df
+        # import pandas as pd
+        # df = pd.DataFrame(records_data) 
+        # df.index += 1
+        # return df
 
 
 # ------------------------------------------

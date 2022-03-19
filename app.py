@@ -111,21 +111,41 @@ def user_home(username):
 
     return render_template("user_home.html",
                             username=username,
+                            m_get=True,
                           )
 
+@app.route("/fetch_history")
+def fetch_history():
+    from account_tests import KhataBook_by_ID as kid
+    obj = kid.flask_sheet()
+    return render_template("fetch_history.html",
+                            fetch=obj.fetch(0),
+                          )
 
 @app.route("/account/<username>", methods=["GET", "POST"])
 def user_account(username):
 
-    if not session.get(username):
-        abort(401)
+    if request.method == "POST":
+        if not session.get(username):
+            abort(401)
 
-    # money = float(request.form['money'])
-    # from Clouix.Firebase import flower as fire
+        product = request.form['product']
+        cost = float(request.form['cost'])
+        cid = int(request.form['cid'])
 
-    return render_template("user_home.html", 
-                            username=username,
-                            )
+        from account_tests import KhataBook_by_ID as kid
+        obj = kid.flask_sheet()
+        attend = [product, cost] 
+        obj.mark(attend, cid)
+
+        flash(f"{attend[1]} / {attend[2]} / {cid}")
+        return render_template("user_home.html", 
+                                username=username,
+                                fetch=obj.fetch(cid),
+                                m_get=False,
+                                )
+    else:
+        return render_template('404.html')
 
 
 @app.route("/logout/<username>")
