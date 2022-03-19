@@ -82,8 +82,12 @@ def add_cust(cust):
 def fetch(sheet_id):
     sheet_instance = sheet.get_worksheet_by_id(sheet_id)
     records_data = sheet_instance.get_all_records()
-    return records_data
+    df = pd.DataFrame(records_data) 
+    df.index += 1
+    return df
 
+
+# ------------------------------------------
 
 # cust = input('Enter Your Name : ') 
 # sheet_id = add_cust(cust) 
@@ -97,8 +101,6 @@ def fetch(sheet_id):
 # mark(attend, sheet_id)
 
 
-sheet_id = int(input('Enter Sheet ID : '))
-ret = fetch(sheet_id)
-df = pd.DataFrame(ret) 
-df.index += 1
-print(df)
+# sheet_id = int(input('Enter Sheet ID : '))
+# df = fetch(sheet_id)
+# print(df)
