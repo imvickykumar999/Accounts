@@ -1,16 +1,12 @@
 # https://docs.gspread.org/en/latest/api.html#gspread.spreadsheet.Spreadsheet.share
 
-from unicodedata import name
 from oauth2client.service_account import ServiceAccountCredentials as sac
 import gspread, os
 
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 
-# path = './Clouix/Spreadsheets'
 jfile = 'ideationology-lab-b60654e44e37.json'
-# jfile = os.path.join(path, jfile)
-
 creds = sac.from_json_keyfile_name(jfile, scope)
 client = gspread.authorize(creds)
 
@@ -42,8 +38,7 @@ def mark(attend, sheet_no):
 
     worksheet_up.update(f'C{sz+1}', f"=SUM(C2:C{sz})", raw=False)
     worksheet_up.format(f'C{sz+1}', {"textFormat": {"bold": True}})
-
-
+    
 
 sheet_no = 0
 saman = input('Enter Saman : ')
