@@ -6,20 +6,13 @@ from flask_sqlalchemy import sqlalchemy, SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-
-# Change dbname here
 db_name = "auth.db"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{db}'.format(db=db_name)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-
-# SECRET_KEY required for session, flash and Flask Sqlalchemy to work
 app.config['SECRET_KEY'] = 'configure strong secret key here'
 
 db = SQLAlchemy(app)
-# db.create_all()
-
 
 class User(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
@@ -28,7 +21,6 @@ class User(db.Model):
 
     def __repr__(self):
         return '' % self.username
-
 
 @app.route('/')
 def index():
@@ -42,13 +34,11 @@ def page_not_found(e):
     e = 'Page not Found'
     return ( render_template('404.html', e=e), 404 )
 
-
 def create_db():
     """ # Execute this first time to create new db in current directory. """
     db.create_all()
 
-
-@app.route("/signup/", methods=["GET", "POST"])
+# @app.route("/signup/", methods=["GET", "POST"])    # ( No signup allowed )
 def signup():
 
     if request.method == "POST":
@@ -62,9 +52,7 @@ def signup():
             username = username.strip()
             password = password.strip()
 
-        # Returns salted pwd hash in format : method$salt$hashedvalue
         hashed_pwd = generate_password_hash(password, 'sha256')
-        
         new_user = User(username=username, pass_hash=hashed_pwd,)
         db.session.add(new_user)
 
@@ -78,7 +66,6 @@ def signup():
         return redirect(url_for("login"))
 
     return render_template("signup.html")
-
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
@@ -102,7 +89,6 @@ def login():
         else:
             flash("Invalid username or password.")
     return render_template("login_form.html")
-
 
 @app.route("/user/<username>")
 def user_home(username):
@@ -147,15 +133,12 @@ def user_account(username):
     else:
         return render_template('404.html')
 
-
 @app.route("/logout/<username>")
 def logout(username):
-    """ Logout user and redirect to login page with success message."""
     session.pop(username, None)
 
     flash("successfully logged out.")
     return redirect(url_for('login'))
-
 
 # =================================================
 

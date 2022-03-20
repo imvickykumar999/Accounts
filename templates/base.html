@@ -84,7 +84,7 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a style="color:blue;" class="dropdown-item" href="/signup"><strong>Signup</strong></a>
+                      <a style="color:blue;" class="dropdown-item" href="{{ url_for('logout', username=username) }}"><strong>Logout</strong></a>
 
                       <div class="dropdown-divider"></div>
                       <a style="color:green;" class="dropdown-item" href="/login"><strong>Login</strong></a>
