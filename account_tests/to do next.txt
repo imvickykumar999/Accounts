@@ -1,6 +1,2 @@
 
-flask website account login
-
 Time difference of heroku deployed + 5 hours
-
-Top not inserted while purchase.

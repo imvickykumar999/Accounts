@@ -24,7 +24,9 @@ class flask_sheet:
                  top = ['Purchased Date', 'Objects', 'Cost']):
         
         import datetime
-        dt = str(datetime.datetime.now()).split()
+        dt = datetime.datetime.now()
+        dt += datetime.timedelta(days = 0, hours = 5, minutes = 30)
+        dt = str(dt).split()
 
         attend.insert(0, ' / '.join(dt))
         worksheet_up = self.sheet.get_worksheet_by_id(sheet_id)
@@ -44,6 +46,9 @@ class flask_sheet:
         })
 
         sz = len(worksheet_up.col_values(1))
+        if sz == 1:
+            sz=2
+
         worksheet_up.update(f'A{sz}', [attend])
         worksheet_up.format(f'A{sz}', {"textFormat": {"bold": False}}) 
 
