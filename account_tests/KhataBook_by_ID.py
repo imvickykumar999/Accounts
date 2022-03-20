@@ -45,6 +45,7 @@ class flask_sheet:
 
         sz = len(worksheet_up.col_values(1))
         worksheet_up.update(f'A{sz}', [attend])
+        worksheet_up.format(f'A{sz}', {"textFormat": {"bold": False}}) 
 
         if top == ['Purchased Date', 'Objects', 'Cost']:
             worksheet_up.format(f'A{sz}', {"textFormat": {"bold": False}})
@@ -60,6 +61,9 @@ class flask_sheet:
 
             worksheet_up.update(f'C{sz+1}', f"=SUM(C2:C{sz})", raw=False)
             worksheet_up.format(f'C{sz+1}', {"textFormat": {"bold": True}}) 
+        else:
+            worksheet_up.update(f'A{sz+1}', 'Customer Added')
+            worksheet_up.format(f'A{sz+1}', {"textFormat": {"bold": True}}) 
 
         body = {
             "requests": [

@@ -13,29 +13,31 @@
     <center>
       <form action="{{ url_for('update', username=username) }}" method="post">
 
-        <br><br>
-        <h2 style="color:red;">
-          Write Name
-        </h2> 
+        <div class="alert alert-success" role="alert">
+          <br>
+          <h2 style="color:red;">
+            Write Name
+          </h2> 
 
-        <h4 style="color:blue;">
-          To Add Customer
-        </h4>
+          <h4 style="color:blue;">
+            To Add Customer
+          </h4>
 
-        <br>
-        <input type="text" 
-        placeholder="write here and press add button"
-        name="cust" />
+          <br>
+          <input type="text" 
+          placeholder="then, press add button"
+          name="cust" />
 
-        <br><br>
-        <input type="image"
-          src="../static/add.png"
-          width="200"
-          height="60"
-          alt="submit"/>
-        <br><br>
+          <br><br>
+          <input type="image"
+            src="../static/add.png"
+            width="200"
+            height="60"
+            alt="submit"/>
+          <br><br>
+        </div>
 
-        {% for i in fetch %}
+        {% for i in fetch[:-1] %}
           <br>
           <div class="alert alert-warning" role="alert">
 
