@@ -11,36 +11,60 @@
   </head>
   <body>
     <center>
+      <form action="{{ url_for('update', username=username) }}" method="post">
 
-      {% for i in fetch %}
+        <br><br>
+        <h2 style="color:red;">
+          Write Name
+        </h2> 
+
+        <h4 style="color:blue;">
+          To Add Customer
+        </h4>
+
         <br>
-        <div class="alert alert-warning" role="alert">
+        <input type="text" 
+        placeholder="write here and press add button"
+        name="cust" />
 
+        <br><br>
+        <input type="image"
+          src="../static/add.png"
+          width="200"
+          height="60"
+          alt="submit"/>
+        <br><br>
+
+        {% for i in fetch %}
           <br>
-          <table>
-            {% for key, value in i.items() %}
-              <tr>
+          <div class="alert alert-warning" role="alert">
 
-                <td>
-                  <div class="alert alert-success" role="alert">
-                    <h5>{{ key }}</h5>
-                  </div>
-                </td>
+            <br>
+            <table>
+              {% for key, value in i.items() %}
+                <tr>
 
-                <td>
-                  <div class="alert alert-danger" role="alert">
-                    <h5>{{ value }}</h5>
-                  </div>
-                </td>
+                  <td>
+                    <div class="alert alert-success" role="alert">
+                      <h5>{{ key }}</h5>
+                    </div>
+                  </td>
 
-              </tr>
-            {% endfor %}
-          </table>
+                  <td>
+                    <div class="alert alert-danger" role="alert">
+                      <h5>{{ value }}</h5>
+                    </div>
+                  </td>
 
-        </div>
-        <br>
-      {% endfor %}
+                </tr>
+              {% endfor %}
+            </table>
 
+          </div>
+          <br>
+        {% endfor %}
+
+      </form>
     </center>
   </body>
 </html>

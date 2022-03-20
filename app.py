@@ -100,13 +100,38 @@ def user_home(username):
                             m_get=True,
                           )
 
-@app.route("/fetch_history")
-def fetch_history():
+@app.route("/fetch_history/<username>")
+def fetch_history(username):
+
+    if not session.get(username):
+        abort(401)
+
     from account_tests import KhataBook_by_ID as kid
     obj = kid.flask_sheet()
     return render_template("fetch_history.html",
+                            username=username,
                             fetch=obj.fetch(0),
                           )
+
+@app.route("/update/<username>", methods=["GET", "POST"])
+def update(username):
+
+    if request.method == "POST":
+        if not session.get(username):
+            abort(401)
+
+        cust = request.form['cust']
+        from account_tests import KhataBook_by_ID as kid
+
+        obj = kid.flask_sheet()
+        obj.add_cust(cust)
+
+        return render_template("fetch_history.html", 
+                                username=username,
+                                fetch=obj.fetch(0),
+                                )
+    else:
+        return render_template('404.html')
 
 @app.route("/account/<username>", methods=["GET", "POST"])
 def user_account(username):
