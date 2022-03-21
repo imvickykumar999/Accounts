@@ -22,19 +22,13 @@
 
               {% if not m_get %}
               <br><br>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-warning" role="alert">
                   <br>
 
                   <table>
                     {% for key, value in fetch[-1].items() %}
                       <tr>
-        
-                        <td>
-                          <div class="alert alert-warning" role="alert">
-                            <h5>{{ key }}</h5>
-                          </div>
-                        </td>
-        
+
                         <td>
                           <div class="alert alert-danger" role="alert">
                             <h5>{{ value }}</h5>
@@ -81,15 +75,15 @@
                 <div class="alert alert-warning" role="alert">
 
                   <h5>Product Name</h5>  
-                  <input type="text" name="product" />
+                  <input type="text" name="product" required>
                   <br><br><br>
                   
                   <h5>Total Cost</h5>
-                  <input type="text" name="cost" />
+                  <input type="text" name="cost" required>
                   <br><br><br>
 
                   <h5>Customer ID</h5>
-                  <input type="text" name="cid" />
+                  <input type="text" name="cid" required>
                   <br><br>
                   <!-- <input type="submit" id="submit" text="Login" /> -->
                 </div>
@@ -101,21 +95,29 @@
                   height="60"
                   alt="submit"/>
 
-                <br>
+                <br><br>
               </div>
 
               <br>
               {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                  <ul class=flashes>
-                  {% for message in messages %}
-                    <li>
-                      <h2 style="color: red;">
-                        {{ message }}
-                      </h2>
-                    </li>
-                  {% endfor %}
-                  </ul>
+                  <h1>
+                    <em>
+                      Last Purchase ...
+                    </em>
+                  </h1>
+
+                  <br>
+                  <div class="alert alert-primary" role="alert">
+                    {% for message in messages %}
+                      <h3 style="color: red;">
+                        <strong>
+                          {{ message }}
+                        </strong>
+                      </h3>
+                    {% endfor %}
+                  </div>
+
                 {% endif %}
               {% endwith %}
 

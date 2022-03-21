@@ -24,8 +24,7 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html',
-                            )
+    return render_template('index.html')
 
 # https://myaccount.google.com/u/3/lesssecureapps?pli=1&rapt=AEjHL4MpjjYh8Z-01vJ5GRsQXICYQsXHG0PweSjWenlbAJfes6qNKbHKs_CfCVh0d5qUO58qFeeB0sYCbA3GANLf-965469dVA
 
@@ -40,7 +39,6 @@ def create_db():
 
 # @app.route("/signup/", methods=["GET", "POST"])    # ( No signup allowed )
 def signup():
-
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -64,12 +62,10 @@ def signup():
 
         flash("User account has been created.")
         return redirect(url_for("login"))
-
     return render_template("signup.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
-
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -94,7 +90,6 @@ def login():
 def user_home(username):
     if not session.get(username):
         return redirect(url_for("login"))
-
     return render_template("user_home.html",
                             username=username,
                             m_get=True,
@@ -102,7 +97,6 @@ def user_home(username):
 
 @app.route("/fetch_history/<username>")
 def fetch_history(username):
-
     if not session.get(username):
         abort(401)
 
@@ -115,7 +109,6 @@ def fetch_history(username):
 
 @app.route("/update/<username>", methods=["GET", "POST"])
 def update(username):
-
     if request.method == "POST":
         if not session.get(username):
             abort(401)
@@ -125,7 +118,6 @@ def update(username):
 
         obj = kid.flask_sheet()
         obj.add_cust(cust)
-
         return render_template("fetch_history.html", 
                                 username=username,
                                 fetch=obj.fetch(0),
@@ -135,28 +127,31 @@ def update(username):
 
 @app.route("/account/<username>", methods=["GET", "POST"])
 def user_account(username):
+    try:
+        if request.method == "POST":
+            if not session.get(username):
+                abort(401)
 
-    if request.method == "POST":
-        if not session.get(username):
-            abort(401)
+            product = request.form['product']
+            cost = float(request.form['cost'])
+            cid = int(request.form['cid'])
 
-        product = request.form['product']
-        cost = float(request.form['cost'])
-        cid = int(request.form['cid'])
+            from account_tests import KhataBook_by_ID as kid
+            obj = kid.flask_sheet()
+            attend = [product, cost] 
+            obj.mark(attend, cid)
 
-        from account_tests import KhataBook_by_ID as kid
-        obj = kid.flask_sheet()
-        attend = [product, cost] 
-        obj.mark(attend, cid)
-
-        flash(f"{attend[1]} / {attend[2]} / {cid}")
-        return render_template("user_home.html", 
-                                username=username,
-                                fetch=obj.fetch(cid),
-                                m_get=False,
-                                )
-    else:
-        return render_template('404.html')
+            # flash(f"{attend[1]} / {attend[2]} / {cid}")
+            flash(product)
+            flash(cost)
+            flash(cid)
+            return render_template("user_home.html", 
+                                    username=username,
+                                    fetch=obj.fetch(cid),
+                                    m_get=False,
+                                    )
+    except Exception as e:
+        return render_template('404.html', e=e)
 
 @app.route("/logout/<username>")
 def logout(username):
