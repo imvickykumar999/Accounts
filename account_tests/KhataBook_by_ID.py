@@ -28,7 +28,8 @@ class flask_sheet:
         dt += datetime.timedelta(days = 0, hours = 5, minutes = 30)
         dt = str(dt).split()
 
-        attend.insert(0, ' / '.join(dt))
+        attend.insert(0, ' / '.join(dt)) # inserting at index 0, in list.
+        print(attend)
         worksheet_up = self.sheet.get_worksheet_by_id(sheet_id)
 
         worksheet_up.update('A1', [top])

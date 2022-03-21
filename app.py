@@ -14,6 +14,7 @@ app.config['SECRET_KEY'] = 'configure strong secret key here'
 
 db = SQLAlchemy(app)
 
+
 class User(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
@@ -22,9 +23,11 @@ class User(db.Model):
     def __repr__(self):
         return '' % self.username
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 # https://myaccount.google.com/u/3/lesssecureapps?pli=1&rapt=AEjHL4MpjjYh8Z-01vJ5GRsQXICYQsXHG0PweSjWenlbAJfes6qNKbHKs_CfCVh0d5qUO58qFeeB0sYCbA3GANLf-965469dVA
 
@@ -33,9 +36,11 @@ def page_not_found(e):
     e = 'Page not Found'
     return ( render_template('404.html', e=e), 404 )
 
+
 def create_db():
     """ # Execute this first time to create new db in current directory. """
     db.create_all()
+
 
 # @app.route("/signup/", methods=["GET", "POST"])    # ( No signup allowed )
 def signup():
@@ -64,6 +69,7 @@ def signup():
         return redirect(url_for("login"))
     return render_template("signup.html")
 
+
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -86,6 +92,7 @@ def login():
             flash("Invalid username or password.")
     return render_template("login_form.html")
 
+
 @app.route("/user/<username>")
 def user_home(username):
     if not session.get(username):
@@ -94,6 +101,7 @@ def user_home(username):
                             username=username,
                             m_get=True,
                           )
+
 
 @app.route("/fetch_history/<username>")
 def fetch_history(username):
@@ -106,6 +114,7 @@ def fetch_history(username):
                             username=username,
                             fetch=obj.fetch(0),
                           )
+
 
 @app.route("/update/<username>", methods=["GET", "POST"])
 def update(username):
@@ -125,6 +134,7 @@ def update(username):
     else:
         return render_template('404.html')
 
+
 @app.route("/account/<username>", methods=["GET", "POST"])
 def user_account(username):
     try:
@@ -141,7 +151,6 @@ def user_account(username):
             attend = [product, cost] 
             obj.mark(attend, cid)
 
-            # flash(f"{attend[1]} / {attend[2]} / {cid}")
             flash(product)
             flash(cost)
             flash(cid)
@@ -153,14 +162,15 @@ def user_account(username):
     except Exception as e:
         return render_template('404.html', e=e)
 
+
 @app.route("/logout/<username>")
 def logout(username):
     session.pop(username, None)
+    # print(session)
 
     flash("successfully logged out.")
     return redirect(url_for('login'))
 
-# =================================================
 
 if __name__ == '__main__':
     app.run(debug=True)
