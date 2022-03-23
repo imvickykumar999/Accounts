@@ -21,9 +21,11 @@
               </h2>
             </div>
 
-            <div class="alert alert-success" role="alert">
-              <form id="login" action="{{ url_for('login')}}" method="post">
+            <br>
+            <form id="login" action="{{ url_for('login')}}" method="post">
+              <div class="alert alert-success" role="alert">
 
+                <br>
                 <h5>Username</h5>  
                 <input type="text" id="username" name="username" />
                 <br><br><br>
@@ -32,15 +34,15 @@
                 <input type="password" id="password" name="password" />
                 <br><br>
                 <!-- <input type="submit" id="submit" text="Login" /> -->
-              
-                <br>
-                <input type="image"
-                  src="../static/submit.png"
-                  width="200"
-                  height="60"
-                  alt="submit"/>
-              </form>
-            </div>
+              </div>
+
+              <br>
+              <input type="image"
+                src="../static/submit.png"
+                width="200"
+                height="60"
+                alt="submit"/>
+            </form>
 
             {% with messages = get_flashed_messages() %}
               {% if messages %}

@@ -115,7 +115,11 @@
                     </em>
                   </h1>
 
-                  <br>
+                  <a href="https://docs.google.com/spreadsheets/d/1aJqW6A_rVdK7bfeX2Lb8O22xztbDFZw29yLwSc3ekUE/export?format=xlsx&gid={{cid}}">
+                    ( Click me to Download excel file for {{cid}} )
+                  </a>
+
+                  <br><br>
                   <div class="alert alert-primary" role="alert">
                     {% for message in messages %}
                       <h3 style="color: red;">
@@ -131,11 +135,22 @@
 
               <br>
               <div class="alert alert-danger" role="alert">
-                <a href="{{ url_for('logout', username=username) }}">
-                  <h3>
+                <a href="#demo" data-toggle="collapse">
+                  <h1 style="color: red;">
                     Logout
-                  </h3>
+                  </h1>
                 </a>
+
+                <div id="demo" class="collapse">
+                  <br><br>
+                  <a href="{{ url_for('logout', username=username) }}">
+                    <h3>
+                      Click me to
+                      <br>
+                      Confirm Logout.
+                    </h3>
+                  </a>
+                </div>
               </div>
 
             </div>

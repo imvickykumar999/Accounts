@@ -100,6 +100,7 @@ def user_home(username):
     return render_template("user_home.html",
                             username=username,
                             m_get=True,
+                            cid=None,
                           )
 
 
@@ -157,6 +158,7 @@ def user_account(username):
             return render_template("user_home.html", 
                                     username=username,
                                     fetch=obj.fetch(cid),
+                                    cid=cid,
                                     m_get=False,
                                     )
     except Exception as e:
