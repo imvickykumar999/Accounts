@@ -20,29 +20,7 @@
                 </span>
               </h1>
 
-              {% if not m_get %}
-              <br><br>
-                <div class="alert alert-warning" role="alert">
-                  <br>
-
-                  <table>
-                    {% for key, value in fetch[-1].items() %}
-                      <tr>
-
-                        <td>
-                          <div class="alert alert-danger" role="alert">
-                            <h5>{{ value }}</h5>
-                          </div>
-                        </td>
-        
-                      </tr>
-                    {% endfor %}
-                  </table>
-
-                </div>
-              {% endif %}
-
-              <br><br>
+              <br>
               <div class="alert alert-primary" role="alert">
 
                 <h2 style="color: blue;">
@@ -132,6 +110,28 @@
 
                 {% endif %}
               {% endwith %}
+              
+              {% if not m_get %}
+              <br>
+                <div class="alert alert-warning" role="alert">
+                  <br>
+
+                  <table>
+                    {% for key, value in fetch[-1].items() %}
+                      <tr>
+
+                        <td>
+                          <div class="alert alert-danger" role="alert">
+                            <h5>{{ value }}</h5>
+                          </div>
+                        </td>
+        
+                      </tr>
+                    {% endfor %}
+                  </table>
+
+                </div>
+              {% endif %}
 
               <br>
               <div class="alert alert-danger" role="alert">
